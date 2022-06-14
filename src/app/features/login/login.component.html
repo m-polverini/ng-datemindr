@@ -1,0 +1,135 @@
+<div class="container-fluid h-100">
+  <div class="position-relative h-100">
+    <div class="position-absolute top-50 start-50 translate-middle">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title text-center mb-4">Sign In</h5>
+          <form [formGroup]="loginForm" (submit)="login()">
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <div class="input-group mb-3">
+                  <span
+                    class="input-group-text border-end-0"
+                    id="email-addon"
+                    [ngClass]="{
+                      'border-danger':
+                        email?.invalid && (email?.dirty || email?.touched),
+                      'border-success': email?.valid
+                    }"
+                    ><i
+                      class="bi bi-person"
+                      [ngClass]="{
+                        'text-danger':
+                          email?.invalid && (email?.dirty || email?.touched),
+                        'text-success': email?.valid
+                      }"
+                    ></i>
+                  </span>
+                  <input
+                    type="email"
+                    class="form-control border-start-0"
+                    [ngClass]="{
+                      'is-invalid':
+                        email?.invalid && (email?.dirty || email?.touched),
+                      'is-valid': email?.valid
+                    }"
+                    formControlName="email"
+                    placeholder="Email address"
+                    aria-label="Email address"
+                    aria-describedby="email-addon"
+                  />
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="input-group mb-3">
+                  <span
+                    class="input-group-text border-end-0"
+                    id="password-addon"
+                    [ngClass]="{
+                      'border-danger':
+                        password?.invalid &&
+                        (password?.dirty || password?.touched),
+                      'border-success': password?.valid
+                    }"
+                    ><i
+                      class="bi bi-key"
+                      [ngClass]="{
+                        'text-danger':
+                          password?.invalid &&
+                          (password?.dirty || password?.touched),
+                        'text-success': password?.valid
+                      }"
+                    ></i>
+                  </span>
+                  <input
+                    [type]="showPassword ? 'text' : 'password'"
+                    class="form-control border-end-0 border-start-0"
+                    [ngClass]="{
+                      'is-invalid':
+                        password?.invalid &&
+                        (password?.dirty || password?.touched),
+                      'is-valid': password?.valid
+                    }"
+                    formControlName="password"
+                    placeholder="Password"
+                    aria-label="Password"
+                    aria-describedby="password-addon"
+                  />
+                  <span
+                    class="input-group-text border-start-0"
+                    [ngClass]="{
+                      'border-danger':
+                        password?.invalid &&
+                        (password?.dirty || password?.touched),
+                      'border-success': password?.valid
+                    }"
+                    id="password-addon"
+                    ><i
+                      class="bi clickable"
+                      [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"
+                      (click)="togglePassword()"
+                    ></i
+                  ></span>
+                </div>
+                <a routerLink="/" class="text-primary text-decoration-none"
+                  >Forgot password?</a
+                >
+              </div>
+              <div class="col-md-12 d-grid gap-2 mt-3">
+                <button
+                  class="btn btn-success"
+                  type="submit"
+                  [disabled]="loginForm.invalid"
+                >
+                  Sign In
+                </button>
+                <p class="text-center m-0 p-0">or</p>
+                <div class="d-flex align-items-center flex-column">
+                  <span
+                    class="badge rounded-pill text-bg-light d-flex align-items-center justify-content-center clickable hoverable mb-2"
+                    (click)="login(GOOGLE)"
+                    >Sign in with Google
+                    <i class="bi bi-google text-danger ms-2"></i
+                  ></span>
+                  <!-- <span
+                    class="badge rounded-pill text-bg-light d-flex align-items-center justify-content-center clickable hoverable mb-3"
+                    (click)="login('FACEBOOK')"
+                    >Sign in with Facebook
+                    <i class="bi bi-facebook text-primary ms-2"></i
+                  ></span> -->
+                </div>
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  routerLink="/create-account"
+                >
+                  Don't have an account? Create now!
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

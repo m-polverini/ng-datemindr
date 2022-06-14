@@ -1,0 +1,119 @@
+<div class="container-fluid h-100">
+  <div class="position-relative h-100">
+    <div class="position-absolute top-50 start-50 translate-middle">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title text-center mb-4">Create Account</h5>
+          <form [formGroup]="form" (submit)="create()">
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <div class="input-group mb-3">
+                  <span
+                    class="input-group-text border-end-0"
+                    id="email-addon"
+                    [ngClass]="{
+                      'border-danger':
+                        email?.invalid && (email?.dirty || email?.touched),
+                      'border-success': email?.valid
+                    }"
+                    ><i
+                      class="bi bi-person"
+                      [ngClass]="{
+                        'text-danger':
+                          email?.invalid && (email?.dirty || email?.touched),
+                        'text-success': email?.valid
+                      }"
+                    ></i>
+                  </span>
+                  <input
+                    type="email"
+                    class="form-control border-start-0"
+                    [ngClass]="{
+                      'is-invalid':
+                        email?.invalid && (email?.dirty || email?.touched),
+                      'is-valid': email?.valid
+                    }"
+                    formControlName="email"
+                    placeholder="Email address"
+                    aria-label="Email address"
+                    aria-describedby="email-addon"
+                  />
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="input-group mb-3">
+                  <span
+                    class="input-group-text border-end-0"
+                    id="password-addon"
+                    [ngClass]="{
+                      'border-danger':
+                        password?.invalid &&
+                        (password?.dirty || password?.touched),
+                      'border-success': password?.valid
+                    }"
+                    ><i
+                      class="bi bi-key"
+                      [ngClass]="{
+                        'text-danger':
+                          password?.invalid &&
+                          (password?.dirty || password?.touched),
+                        'text-success': password?.valid
+                      }"
+                    ></i>
+                  </span>
+                  <input
+                    [type]="showPassword ? 'text' : 'password'"
+                    class="form-control border-end-0 border-start-0"
+                    [ngClass]="{
+                      'is-invalid':
+                        password?.invalid &&
+                        (password?.dirty || password?.touched),
+                      'is-valid': password?.valid
+                    }"
+                    formControlName="password"
+                    placeholder="Password"
+                    aria-label="Password"
+                    aria-describedby="password-addon"
+                  />
+                  <span
+                    class="input-group-text border-start-0"
+                    [ngClass]="{
+                      'border-danger':
+                        password?.invalid &&
+                        (password?.dirty || password?.touched),
+                      'border-success': password?.valid
+                    }"
+                    id="password-addon"
+                    ><i
+                      class="bi clickable"
+                      [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"
+                      (click)="togglePassword()"
+                    ></i
+                  ></span>
+                </div>
+                <app-validator-password #validator></app-validator-password>
+              </div>
+              <div class="col-md-12 d-grid gap-2 mt-3">
+                <button
+                  class="btn btn-success"
+                  type="submit"
+                  [disabled]="form.invalid"
+                >
+                  Create account
+                </button>
+                <p class="text-center m-0 p-0">or</p>
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  routerLink="/login"
+                >
+                  Already have an account? Sign in!
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

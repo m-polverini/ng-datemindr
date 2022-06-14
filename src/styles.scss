@@ -1,0 +1,33 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../node_modules/bootstrap-icons/font/bootstrap-icons";
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  min-width: 24rem;
+}
+
+.input-group-text {
+  background-color: transparent;
+}
+
+.bi {
+  font-size: 1.3rem !important;
+}
+
+i.bi.clickable,
+span.badge.clickable {
+  cursor: pointer;
+}
+
+span.badge.clickable {
+  min-width: 15rem !important;
+}
+span.badge.clickable:hover {
+  background-color: $gray-400 !important;
+}

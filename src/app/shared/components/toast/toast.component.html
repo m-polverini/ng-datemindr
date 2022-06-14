@@ -1,0 +1,28 @@
+<ng-container *ngIf="toasts$ | async as toasts">
+  <div aria-live="polite" aria-atomic="true" class="position-relative">
+    <div class="toast-container top-0 end-0 p-3" id="toastPlacement">
+      <div
+        class="toast d-block"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        *ngFor="let toast of toasts; index as i"
+      >
+        <div class="toast-header" [ngClass]="getColorToast(toast.type)">
+          <strong class="me-auto">{{ toast.type }}</strong>
+          <small class="text-muted">{{ toast.time }}</small>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+            (click)="remove(i)"
+          ></button>
+        </div>
+        <div class="toast-body">
+          {{ toast.message }}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
