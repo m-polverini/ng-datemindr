@@ -26,7 +26,6 @@ export class CreateAccountComponent implements OnDestroy {
     this._pswSubscription = this.form
       .get('password')
       ?.valueChanges.subscribe((value) => {
-        console.log(value);
         this.validatorPassword?.calc(value);
       });
   }
@@ -34,7 +33,9 @@ export class CreateAccountComponent implements OnDestroy {
     if (this._pswSubscription) this._pswSubscription.unsubscribe();
   }
 
-  create() {}
+  create() {
+    this._authService.createAccount(this.form.value);
+  }
 
   togglePassword() {
     this.showPassword = !this.showPassword;

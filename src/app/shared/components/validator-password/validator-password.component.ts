@@ -17,7 +17,6 @@ export class ValidatorPasswordComponent {
     if (password.match(/[A-Z]/)) this.points += 20;
     if (password.match(/[a-z]/)) this.points += 20;
     if (password.match(/\W|_/g)) this.points += 20;
-    console.log(this.points);
   }
 
   getValidation(): string {

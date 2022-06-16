@@ -11,6 +11,7 @@ import {
   signInWithEmailAndPassword,
   signInWithRedirect,
   getRedirectResult,
+  createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
@@ -18,6 +19,7 @@ import { Login } from '../models/login/login';
 import { Provider } from '../models/login/provider';
 import { TypeToast } from '../models/toast/type-toast';
 import { FirebaseService } from './firebase.service';
+import { MailService } from './mail.service';
 import { ToastService } from './toast.service';
 
 @Injectable({
@@ -27,7 +29,11 @@ export class AuthService {
   googleProvider: GoogleAuthProvider;
   auth: Auth;
   currentUser: User | null = null;
-  constructor(private _router: Router, private _toastService: ToastService) {
+  constructor(
+    private _router: Router,
+    private _toastService: ToastService,
+    private _mailService: MailService
+  ) {
     this.googleProvider = new GoogleAuthProvider();
     this.auth = getAuth();
     this.auth.useDeviceLanguage();
@@ -71,25 +77,41 @@ export class AuthService {
     });
   }
 
+  createAccount(value: Login) {
+    createUserWithEmailAndPassword(this.auth, value.email, value.password)
+      .then((result) => {
+        this.currentUser = result.user;
+        this._mailService.sendEmailVerification(this.currentUser);
+        this._router.navigateByUrl('/home');
+      })
+      .catch((error) => {
+        console.error(error);
+        this._toastService.showToast({
+          message: FirebaseService.mapCodeToMessage(error.code),
+          type: TypeToast.DANGER,
+          date: moment(),
+        });
+      });
+  }
+
   login(value: Login | null, method?: Provider) {
     if (method) this.useProvider(method);
     else if (value && !method) this.useEmailPassword(value);
   }
 
   useEmailPassword(value: Login) {
-    signInWithEmailAndPassword(this.auth, value.email, value.password).then(
-      (result) => {
+    signInWithEmailAndPassword(this.auth, value.email, value.password)
+      .then((result) => {
         this.currentUser = result.user;
         this._router.navigateByUrl('/home');
-      },
-      (error) => {
+      })
+      .catch((error) => {
         this._toastService.showToast({
           message: FirebaseService.mapCodeToMessage(error.code),
           type: TypeToast.DANGER,
           date: moment(),
         });
-      }
-    );
+      });
   }
 
   useProvider(method: Provider) {
